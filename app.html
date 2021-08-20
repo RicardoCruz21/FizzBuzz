@@ -83,7 +83,7 @@
                    </div>
                    <div class="row">
                        <div class="col">
-                            <button type="button" class="btn btn-primary">Submit</button>
+                            <button type="button" class="btn btn-primary" id="btnSubmit">Submit</button>
                         </div>
                    </div>
                    <div class="row mt-5">
@@ -95,7 +95,7 @@
                                         <th>Fizz Buzz Results</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="results">
                                     <!-- Results Go Here -->
                                 </tbody>
                             </table>
@@ -138,6 +138,9 @@
 
     <!-- External JS -->
     <script src="/js/site.js"></script>
+    <script>
+        document.getElementById("btnSubmit").addEventListener("click",getNumbers);
+    </script>
 
 </body>
 
