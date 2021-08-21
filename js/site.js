@@ -3,58 +3,46 @@ function getNumbers(){
     let fizzNumber = document.getElementById("fizzNumber").value;
     let buzzNumber = document.getElementById("buzzNumber").value;
 
-    //Validate numbers to integers
-    let validNumbers = false;
-    validNumbers = validateNumbers(fizzNumber,buzzNumber);
+    //Parse for integers
+    fizzNumber = parseInt(fizzNumber);
+    buzzNumber = parseInt(buzzNumber);
 
-    if (validNumbers) {
-
-        //Call generateFizzBuzzNumbers function
-        let fizzBuzzNumbers = generateFizzBuzzNumbers(fizzNumber,buzzNumber);
+    if (Number.isInteger(fizzNumber) && Number.isInteger(buzzNumber)) {
+        
+        //Call FizzBuzz function
+        let fizzBuzzNumbers = fizzBuzz(fizzNumber,buzzNumber);
 
         //Call displayNumbers function
         displayNumbers(fizzBuzzNumbers);
-
-    }
-}
-
-//Validate the numbers entered by the user
-function validateNumbers(value1, value2){
-
-    let number1 = parseInt(value1);
-    let number2 = parseInt(value2);
-
-    if (Number.isInteger(number1) && Number.isInteger(number2)) {
-        return true;
     } else {
         alert("Please enter integers.");
     }
-}
-//Generate Fizz Buzz Numbers
-function generateFizzBuzzNumbers(number1, number2){
 
-    let fizz = number1;
-    let buzz = number2;
+}
+
+//Generate Fizz Buzz Numbers
+function fizzBuzz(fizzValue, buzzValue){
 
     let fizzBuzzNumbers = [];
 
-    for (let index = 1; index <= 100; index++) {
+    //Loop through 1 through 100
+    for (let i = 1; i <= 100; i++) {
         
-        if (index % fizz == 0 && index % buzz == 0) {
+        if (i % fizzValue == 0 && i % buzzValue == 0) {
 
             fizzBuzzNumbers.push("FizzBuzz");
 
-        } else if (index % fizz == 0) {
+        } else if (i % fizzValue == 0) {
 
             fizzBuzzNumbers.push("Fizz");
             
-        } else if (index % buzz == 0) {
+        } else if (i % buzzValue == 0) {
 
             fizzBuzzNumbers.push("Buzz");
 
         } else {
 
-            fizzBuzzNumbers.push(index);
+            fizzBuzzNumbers.push(i);
 
         }
         
@@ -66,6 +54,7 @@ function generateFizzBuzzNumbers(number1, number2){
 //Display the numbers
 function displayNumbers(numbers){
 
+    /*
     let templateRows = "";
 
     for (let index = 0; index < numbers.length; index++) {
@@ -76,7 +65,40 @@ function displayNumbers(numbers){
     }
 
     document.getElementById("results").innerHTML = templateRows;
+    */
 
+    //Get the table body element from the page
+    let tableBody = document.getElementById("results");
 
+    //Get the template row
+    let templateRow = document.getElementById("fizzBuzzTemplate");
+
+    //Clear the table
+    tableBody.innerHTML = "";
+
+    for (let index = 0; index < numbers.length; index += 5) {
+        
+        let tableRow = document.importNode(templateRow.content, true);
+
+        let rowCols = tableRow.querySelectorAll("td");
+        
+        rowCols[0].classList.add(numbers[index]);
+        rowCols[0].textContent = numbers[index];
+        
+        rowCols[1].classList.add(numbers[index + 1]);
+        rowCols[1].textContent = numbers[index+1];
+        
+        rowCols[2].classList.add(numbers[index + 2]);
+        rowCols[2].textContent = numbers[index+2];
+        
+        rowCols[3].classList.add(numbers[index + 3]);
+        rowCols[3].textContent = numbers[index+3];
+        
+        rowCols[4].classList.add(numbers[index + 4]);
+        rowCols[4].textContent = numbers[index+4];
+
+        tableBody.appendChild(tableRow);
+        
+    }
 
 }
